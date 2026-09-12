@@ -1,0 +1,46 @@
+﻿server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: qavzuro-backend
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/qavzuro}
+  jackson:
+    default-property-inclusion: non_null
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration-ms: ${JWT_ACCESS_EXPIRATION_MS:900000}       # 15 min
+    refresh-token-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:1209600000} # 14 days
+    issuer: qavzuro
+
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+  rate-limit:
+    login:
+      capacity: ${RATE_LIMIT_LOGIN_CAPACITY:5}
+      refill-per-minute: ${RATE_LIMIT_LOGIN_REFILL:5}
+    register:
+      capacity: ${RATE_LIMIT_REGISTER_CAPACITY:3}
+      refill-per-minute: ${RATE_LIMIT_REGISTER_REFILL:3}
+    default:
+      capacity: ${RATE_LIMIT_DEFAULT_CAPACITY:60}
+      refill-per-minute: ${RATE_LIMIT_DEFAULT_REFILL:60}
+
+  seed:
+    enabled: ${SEED_ENABLED:false}
+    master-admin:
+      email: ${MASTER_ADMIN_EMAIL:masteradmin@qavzuro.dev}
+      password: ${MASTER_ADMIN_PASSWORD:ChangeMe123!}
+    admin:
+      email: ${ADMIN_EMAIL:admin@qavzuro.dev}
+      password: ${ADMIN_PASSWORD:ChangeMe123!}
+
+logging:
+  level:
+    root: INFO
+    com.qavzuro: INFO
