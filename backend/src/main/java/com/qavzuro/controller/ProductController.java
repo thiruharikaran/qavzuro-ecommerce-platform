@@ -23,11 +23,17 @@ public class ProductController {
     private final ProductService productService;
     private final CurrentUserService currentUserService;
 
-    /** Public catalog search - keyword, category, brand, price/rating filters, sort, pagination. */
-    @GetMapping("/search")
-    public ResponseEntity<Page<Product>> search(ProductSearchRequest req) {
-        return ResponseEntity.ok(productService.search(req));
-    }
+    /** Public catalog listing/search - supports filters, sorting, and pagination. */
+@GetMapping
+public ResponseEntity<Page<Product>> list(ProductSearchRequest req) {
+    return ResponseEntity.ok(productService.search(req));
+}
+
+/** Public catalog search - keyword, category, brand, price/rating filters, sort, pagination. */
+@GetMapping("/search")
+public ResponseEntity<Page<Product>> search(ProductSearchRequest req) {
+    return ResponseEntity.ok(productService.search(req));
+}
 
     @GetMapping("/slug/{slug}")
     public ResponseEntity<Product> getBySlug(@PathVariable String slug) {
